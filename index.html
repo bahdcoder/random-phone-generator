@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Random Phone number generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    * {
+      border-radius: 0px !important;
+    }
+  </style>
+</head>
+<body class="font-sans">
+  <div id="app">
+    <div class="flex items-center justify-center w-full">
+      <h1 class="text-center text-teal my-12">Random Phone Generator</h1>
+    </div>
+  
+    <div class="flex justify-center w-full">
+        <button @click="savePhoneNumber" class="focus:outline-none rounded-full px-5 py-3 leading-normal bg-white border border-purple text-purple hover:bg-purple hover:text-white">Generate Random Number</button>
+    </div>
+
+    <div class="flex my-12 justify-center w-full">
+        <button class="mr-2 text-teal focus:outline-none" @click="getPhoneNumbers()">Ascending</button>
+        <button class="ml-2 text-teal focus:outline-none" @click="getPhoneNumbers(true)">Descending</button>
+    </div>
+
+    <div class="container mx-auto my-12">
+        <div class="flex mb-4" v-for="phone in phones">
+          <div class="w-full bg-grey-darker flex items-center justify-center py-4 text-2xl text-white font-sans">{{ phone }}</div>
+        </div> 
+    </div>   
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.4/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        phones: []
+      },
+      mounted: function () {
+        this.getPhoneNumbers()
+      },
+      methods: {
+        getPhoneNumbers: function (descending = false) {
+          let url = `phone-numbers`
+
+          if (descending) {
+            url = `phone-numbers?descending=true`
+          }
+
+          axios.get(url).then(({ data }) => this.phones = data)
+        },
+        savePhoneNumber: function () {
+          axios.post('phone-numbers').then(({ data }) => this.phones = data)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

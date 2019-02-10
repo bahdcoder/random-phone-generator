@@ -1,0 +1,21 @@
+{
+  "name": "random-phone-generator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Kati Frantz <bahdcoder@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "nyc mocha tests/app.spec.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.10",
+    "nyc": "^13.2.0"
+  }
+}
